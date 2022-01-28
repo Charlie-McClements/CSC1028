@@ -61,24 +61,97 @@ const feedRateOld = 5;
 const feedRateYoung = 8;
 const mealRateOld = 1;
 const mealRateYoung = 5;
+let feedRate = 20;
+const hourly_rate = 10;
 
 //probability variables
 var pastureLameProb = 0.1;
 var housedLameProb = 0.5;
 
+//data variables
+var silageQuantity = 100000;
+var strawQuantity = 10000;
+var houseMuck = 0; //keeps track of how much muck is produced by the cows
+var noCows = 100;
+var houseSilage = 0;
+var muckQuantity = 0;
+var herdWeight = 0;
+var labour = 0; //hours of labour carrried out
+var surfaceQuality = 50; //can be used in the future to help calculate lieklihood of cows becoming lame
+var money = 10000;
+var totalWages = 0;
 
+function cows_tick(){
+    houseMuck += .1 * noCows;
+    surfaceQuality -= .5 * noCows;
+    if(houseSilage >= 0.2*noCows){
+    	houseSilage -= 0.2 * noCows;
+        herdWeight += 0.1 * noCows;
+    }
+    
+}
+
+function feed_cows(){
+    if(houseSilage < 10){
+        if (silageQuantity >= feedRate * noCows){
+            houseSilage += feedRate * noCows;
+            silageQuantity -= feedRate*noCows;
+            labour += 2
+        }
+        else{
+            houseSilage += silageQuantity;
+            silageQuantity -= silageQuantity;
+            labour += 1
+        }
+
+    }
+}
+
+function scrape_houses(){
+	muckQuantity += houseMuck;
+	houseMuck = 0;
+	surfaceQuality += 5;
+	labour += 1;
+}
+
+function bed_houses(){
+	strawQuantity -= 10*noCows;
+	surfaceQuality += 5;
+	labour += .5;
+	}
+
+function abbatoir_check(){
+	if(herdWeight >= 500){
+		herdWeight -= 250;
+		noCows -= 10;
+		money += 5000;
+	}
+}
+
+function pay_wages(){
+	var pay = labour * hourly_rate;
+	money -= pay;
+	totalWages += pay;
+}
 
 //tick simulation
-function simulate_tick(data, deltaInMS) {
+function simulate_tick(deltaInMS) {
 	//methods go here
 
 	//are cows in housing or in field?
+    
 
 	//when in housing
 
+        //simulate cow actions (amount of hunger amount of muck produced)
+        cows_tick();
+
 		//cows need fed
+        feed_cows();
 
 		//cows need scraped and bedded
+		scrape_houses();
+		bed_houses();
 
 		//cows need minerals
 
@@ -115,16 +188,20 @@ function simulate_tick(data, deltaInMS) {
 	//tb test?
 
 	//cattle ready for abbatoir?
+	abbatoir_check();
 
 	//any cattle fall ill?
 
 	//
+
+	//wages need paid
+	pay_wages();
 }
 
-/* for(let step=0;step<5000;step++)
+/*for(let step=0;step<5000;step++)
 {
-	simulate_tick(data,dayInMs);
-} */
+	simulate_tick(dayInMs);
+}*/
 
 //function for date/time comparison probably needed 
 
