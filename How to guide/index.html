@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How to Create a Simulation of a Farm</title>
+        <style>
+
+            *{
+                color:rgb(50, 50, 50);
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                
+            }
+
+            html{
+                border-left:rgb(85, 85, 85) solid 6em;
+                border-right:rgb(85,85,85) solid 6em
+            }
+
+            body {
+                font-size: 160%;
+            }
+            h1,h2,h3 {
+                color:dimgrey;
+                text-align:center;
+                text-decoration:underline;
+                font-family: 'Times New Roman', Times, serif;
+                
+            }
+            p{
+                text-align:center;          
+            }
+            #table{
+                border:black solid .2em;
+                border-radius: 2em ;
+                text-align: center;
+                margin:3em;
+            }
+
+            .center{
+                display: block;
+                margin:auto;
+                padding: 2em;
+            }
+            ul{
+                list-style-type: none;
+                padding:0;
+                margin:0;
+                background: #333;
+                overflow:hidden;
+
+            }
+            li{
+                display: inline;
+                padding:1em;
+                border-right:#bbb solid 1px;
+
+            }
+            li a{
+                color: rgb(230, 230, 230);
+                text-decoration: none;
+            }
+            li a:hover{
+                background-color: #111;
+            }
+
+            a{
+                text-decoration:none;
+                background-color: #333;                
+                border-radius: 1em;
+                color: rgb(230,230,230);
+            }
+            a:hover{
+                background-color:#111;
+            }
+        </style>
+    </head>
+    
+    <body style="background-color: rgb(235, 235, 235);">    
+        <h1>Creating a Simulation of a Farm</h1>    
+        <img src="images/photo-1500595046743-cd271d694d30.avif" alt="Dairy cows in a field" class="center">        
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#primaryGoals">Primary Goals</a></li>
+            <li><a href="#structure">Program Structure</a></li>
+            <li><a href="#adaptability">Adaptability</a></li>
+            <li><a href="#accuracy">Accuracy</a></li>
+
+        </ul>
+        <a id="introduction"><h2>Introduction</h2></a>
+        <p>In this example we will be using javascript in order to create the program, however the basic principles may be easily<br>
+           transferred to a different language if so required. The simulation should be programmed using only procedural programming<br>
+           techniques. Although this may seem odd, this makes the program much more accessible and adaptable to different farms as<br>
+           you will see later.</p>
+        <p>There are four key areas of any simulation that will need to be addressed, these are:</p>
+        <div id = "table">
+        
+            <h3>Primary Goals</h3>
+            <p>You must decide what you want the simulation to be used to acheive.</p>  
+            <h3>Program Structure</h3>
+            <p>Here we will go through a general format for how to begin to approach the programming</p>  
+            <h3>Adaptability</h3>     
+            <p>There's no point having a perfect simulation that can only ever be applied to one small problem.</p>
+            <h3>Accuracy</h3>
+            <p>A simulation which predicts results which are entirely wrong is of no use to anyone!</p>
+
+
+
+</div>
+
+        <a id="primaryGoals"><h2>Primary Goals</h2></a>
+        <p>In order to form any form of simulation you must first identify your specific primary goals. These can vary massively<br>
+           for any farming simulation. In order to determine these goals you must know the type of farm you are aiming to<br>
+           simulate. This is because, factors that may be beneficial to a beef farm will be completely differrent to the factors<br>
+           which are beneficial to an arable farm.</p>
+        <p>In this example we will be looking to simulate a beef farm. Therefore there are some basic goals to consider.</p>
+            <p><b>Important Variables -</b> There are three types of variables that you should consider; constants, probability
+            and variables which hold data relating to the farm. Most of these variables are usually stored within a json file
+            However some, e.g. many probability variables, will be stored within the main document as they are universal across
+            all applications of the simulator<br></p>
+            <img src="images/probability_variables.PNG" alt="Picture of probability variables within the main document" class="center" title="Example of probability variables which are contained within the main document">
+            <p><b>Use of the Simulation</b> - The intended use of the simulation is very important in order to have a clear direction
+            in which you wish to take the project. For example, one use may be to ensure the farm maximises profit. This will then
+            result in different conditions being focused on compared to if you wanted your simulation to help minimise the
+            environmental impact of the farm. In this example we will be taking profitability as the main factor.<br></p>
+            <p><b>Simulation of Cows</b> - in order to make the simulation worthwhile the cows on the beef farm in question should each be represented
+            individually. This is in order to have a realistic approach to the simulation as not all animals will respond the same to the same
+            circumstances. This is where the json comes in.
+        </p>
+
+        <p>Once you have decided upon your primary goals for the simulation you should begin to map out all the important
+           events that may occur within a day and map them out. It's important to have a rough idea of the events which will
+           most impact your simulation in order to ensure they are included. Then further down the line events which will
+           will have a smaller impact can be added when accuracy needs to be improved.</p>
+
+        <a id="structure"><h2>Program Structure</h2></a>
+        <p>When programming the simulation everything will occur within a 'tick'. In this example each tick will represent the passing
+            of a day. Therefore all of the events that may occur within a day should have the possibility of occuring within every tick.
+            All of these actions are included within a loop in the main program, the loop continues to tick in order to simulate the passing
+            of time. The loop can be iterated more or less times in order to pass more or less time.
+        </p>
+        <img src="images/main_loop.PNG" alt="Main loop within the program" class="center" title="Example of the structure of the main loop">
+        <p>As shown in the image above, rather than the code for every event being put into a loop functions declared outside the loop should be
+            called within the loop. This prevents the code from becoming unreadable but also aids the functionality of the code as some events may
+            occur twice within a day and then the function may just be called again rather than the entire chunk of code be re-written.
+        </p>
+        <img src="images/functions_example.PNG" alt="Example of functions declared outside the loop" class="center" title="Example of functions declared outside the main loop">
+        <p>Above shows some basic examples of functions which are declared outside the loop. These functions perform simple arithmetic calculations
+            in order to change variables associated with the farm to simulate what would change on the farm if that action were performed during the day.
+        </p>
+
+        
+
+        <a id="adaptability"><h2>Adaptability (Using Jsons)</h2></a>
+        <p>In order to make the simulation different for every farm you wish to simulate a json file may be used. This file will contain all of the
+           variables assoicated with the farm. E.g. cows<br>
+           One way to keep track of cows individually within a farm without making them objects (as mentioned above we want to program procedurally)
+           is to have a dictionary within the json file for every cow, these dictionaries will keep track of the same variables associated with a cow
+           but may be changed independantly from all other cows.</p>
+        <p>The json file can be used to create a data.js file which may be loaded at the same time as the main .js file is being loaded.
+           this allows for all of the variables within the json to be accessed by the main application. This is the powerful feature of javascript
+           that allows the simulation to be so easily flexible as, if a new json is provided, all the details of a farm will automatically be
+           imported.
+        </p>
+        <a id="accuracy"><h2>Accuracy</h2></a>
+        <p>The initial values used to calculate the profitability of the farm within the simulation aren't particularly important. In order to make
+            the simulation of the program as accurate as possible, human set variables are always going to be too inacurate. Therefore, an optimisation
+            program can be used to optimise the variables to give the most accurate results. This is done by having a set of variables recorded in a
+            real life situation and the outcome of these variables is recorded. An optimisation program can then take the initial values and constantly
+            tweak the variables within the program until it can acheive the same results as were produced in real life. After this process the simulation
+            should be accurate as it can reproduce events that occured within real life. The process can be repeated a few times with different events in
+            order to ensure maximum accuracy.
+            The github repository for one such open source optimisation program is linked below.            
+        </p>
+        <br>
+        <center><a href="https://github.com/optimization-js/optimization-js/blob/master/src/optimization.js" style="padding:1em;">Optimisation Program</a></center><br><br>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#primaryGoals">Primary Goals</a></li>
+            <li><a href="#structure">Program Structure</a></li>
+            <li><a href="#adaptability">Adaptability</a></li>
+            <li><a href="#accuracy">Accuracy</a></li>
+
+        </ul>
+    </body>
+</html>
