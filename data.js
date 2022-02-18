@@ -7,7 +7,7 @@ var data = ({
         "type": "Farm",
         "status": "Active",
         "dateOpened": "01011970",
-        "money": 10000,
+        "money": 100000,
         "breed":{"name":"Salers","calvingEase":0.7, "calvesPerCow":8},        
 
         "Employees": [
@@ -21,7 +21,8 @@ var data = ({
                 "contract": "PT",
                 "gender": "M",
                 "rate": 10,
-                "hours":0
+                "hours":0,
+                "fertCert":false
                 
             },
             {
@@ -33,6 +34,7 @@ var data = ({
                 "contract": "PT",
                 "gender": "M",
                 "rate": 15,
+                "fertCert": true,
                 "hours":0
             },
             {
@@ -44,17 +46,31 @@ var data = ({
                 "contract": "M",
                 "gender": "M",
                 "rate": 30,
+                "fertCert":true,
                 "hours":0
 
         }],
+
+        "Bulls":[
+            {
+                "number":0,
+                "age":1               
+            },
+            {
+                "number":1,
+                "age":1
+            }
+        ],
 
         "Cows":[
             {
                 "number": 0,
                 "age":1,
+                "sire":-1,
                 "weight": 200,
                 "feedConversionRate": 0.17   ,
                 "pregnant":true,
+                "calfSire":0,
                 "noCalves":0,
                 "dueMonth" : 1,
                 "dueDay" : 2, 
@@ -67,9 +83,11 @@ var data = ({
             {
                 "number":1,
                 "age":1,
+                "sire":-1,
                 "weight":170,
                 "feedConversionRate":0.16,
                 "pregnant":true,
+                "calfSire":0,
                 "noCalves":0,
                 "dueMonth" : 2,
                 "dueDay" : 10,
@@ -82,9 +100,11 @@ var data = ({
             {
                 "number":2,
                 "age":1,
+                "sire":-1,
                 "weight":210,
                 "feedConversionRate":0.18,
                 "pregnant":true,
+                "calfSire":0,
                 "noCalves":0,
                 "dueMonth" : 2,
                 "dueDay" : 15,
@@ -98,8 +118,8 @@ var data = ({
 
         "Resources":{
             "straw":{
-                "capacity":10000,
-                "quantity":10000
+                "capacity":1000,
+                "quantity":1000
             },
             "clampSilage":{
                 "capacity":10000,
@@ -127,8 +147,12 @@ var data = ({
             },
             "houseBedding":{
                 "type":"straw",
-                "quantity":100,
-                "capacity":100
+                "quantity":2,
+                "capacity":2,
+                "penCapacity":8 //more straw provided when calving
+            },
+            "fertiliser":{
+                "quantity":1  //in kg
             }
         },
 
@@ -137,22 +161,22 @@ var data = ({
                 "name":"wee_field",
                 "size":2,
                 "crop":"grazing",
-                "feed":0,
-                "fertilized":false
+                "feed":100,
+                "fertiliser":-1
             },
             {
                 "name":"second_field",
                 "size":6,
                 "crop":"grazing",
-                "feed":0,
-                "fertilized":false
+                "feed":100,
+                "fertiliser":-1
             },
             {
                 "name":"pump_hill",
                 "size":10,
                 "crop":"silage",
-                "feed":0,
-                "fertilized":false
+                "feed":100,
+                "fertiliser":-1
             }
         ]
     }
