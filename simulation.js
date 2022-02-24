@@ -635,11 +635,12 @@ function validate(string){
 
 function machinery_depreciation(){  //calculated based off farm average for now, would need to be simulated in more detail for accurate results
     //average machinery depreciation cost in england is £44/acre according to farmers weekly
+    //according to multiple sources, the machinery depreciation cost should be doubled if you want to include the cost of fuel
     acres = 0;
     for(i=0;i<data.company.Fields.length;i++){  //find total acres on the farm
         acres += data.company.Fields[i].size;
     }
-    totalCost = acres * 44;
+    totalCost = acres * 44 * 2;
     data.company.money -= totalCost;
 }
 
