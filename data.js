@@ -7,8 +7,9 @@ var data = ({
         "type": "Farm",
         "status": "Active",
         "dateOpened": "01011970",
-        "money": 100000,
-        "breed":{"name":"Salers","calvingEase":0.7, "calvesPerCow":8},        
+        "money": 0,
+        "herdSize":100,
+        "breed":{"name":"Salers","calvingEase":0.1, "calvesPerCow":8},        //lower calving ease the better
 
         "Employees": [
 
@@ -31,11 +32,11 @@ var data = ({
                 "startDate" : "01012018",
                 "leaveStatus": null,
                 "employeeType": "Labourer",
-                "contract": "PT",
+                "contract": "FT",
                 "gender": "M",
-                "rate": 15,
-                "fertCert": true,
-                "hours":0
+                "rate": 20,                
+                "hours":0,
+                "fertCert": true
             },
             {
                 "employeeName": "Andrew McClements",
@@ -45,73 +46,97 @@ var data = ({
                 "employeeType": "Owner",
                 "contract": "M",
                 "gender": "M",
-                "rate": 30,
-                "fertCert":true,
-                "hours":0
-
+                "rate": 30,                
+                "hours":0,
+                "fertCert":true
         }],
 
         "Bulls":[
             {
                 "number":0,
-                "age":1               
+                "age":300               
             },
             {
                 "number":1,
-                "age":1
+                "age":300
             }
         ],
 
         "Cows":[
             {
                 "number": 0,
-                "age":1,
+                "age":700,
                 "sire":-1,
-                "weight": 200,
-                "feedConversionRate": 0.17   ,
+                "weight": 300,
+                "feedConversionRate": 0.08,
+                "calfNumber":-1,
                 "pregnant":true,
                 "calfSire":0,
                 "noCalves":0,
                 "dueMonth" : 1,
-                "dueDay" : 2, 
+                "dueDay" : 25, 
                 "appetite": 1.2,  
                 "cull":false,  
                 "culled":false,
                 "location": "pen",
+                "lame":false,
                 "field":"0"
             },
             {
                 "number":1,
-                "age":1,
+                "age":700,
                 "sire":-1,
-                "weight":170,
-                "feedConversionRate":0.16,
+                "weight":300,
+                "feedConversionRate":0.08,
+                "calfNumber":-1,
                 "pregnant":true,
                 "calfSire":0,
                 "noCalves":0,
-                "dueMonth" : 2,
-                "dueDay" : 10,
+                "dueMonth" : 1,
+                "dueDay" : 25,
                 "appetite": 1,
                 "cull":false,
                 "culled":false,
                 "location": "house",
+                "lame":false,
                 "field":"0"
             },
             {
                 "number":2,
-                "age":1,
+                "age":700,
                 "sire":-1,
-                "weight":210,
-                "feedConversionRate":0.18,
+                "weight":300,
+                "feedConversionRate":0.08,
+                "calfNumber":-1,
                 "pregnant":true,
                 "calfSire":0,
                 "noCalves":0,
-                "dueMonth" : 2,
-                "dueDay" : 15,
+                "dueMonth" : 1,
+                "dueDay" : 25,
                 "appetite": 0.9,
                 "cull":false,
                 "culled":false,
                 "location": "house",
+                "lame":false,
+                "field":"0"
+            },
+            {
+                "number":3,
+                "age":1,
+                "sire":-1,
+                "weight":40,
+                "feedConversionRate":0.08,
+                "calfNumber":-1,
+                "pregnant":true,
+                "calfSire":0,
+                "noCalves":0,
+                "dueMonth" : 1,
+                "dueDay" : 25,
+                "appetite": 0.9,
+                "cull":true,
+                "culled":false,
+                "location": "house",
+                "lame":false,
                 "field":"0"
             }
         ],
@@ -159,21 +184,35 @@ var data = ({
         "Fields":[
             {
                 "name":"wee_field",
-                "size":2,
+                "size":25,
                 "crop":"grazing",
                 "feed":100,
                 "fertiliser":-1
             },
             {
                 "name":"second_field",
-                "size":6,
+                "size":25,
                 "crop":"grazing",
                 "feed":100,
                 "fertiliser":-1
             },
             {
                 "name":"pump_hill",
-                "size":10,
+                "size":25,
+                "crop":"grazing",
+                "feed":100,
+                "fertiliser":-1
+            },
+            {
+                "name":"tank_hill",
+                "size":25,
+                "crop":"silage",
+                "feed":100,
+                "fertiliser":-1
+            },
+            {
+                "name":"pit_field",
+                "size":25,
                 "crop":"silage",
                 "feed":100,
                 "fertiliser":-1
