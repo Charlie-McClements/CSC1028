@@ -659,47 +659,44 @@ function simulate_tick(data) {
             //cows need fed      - implemented      
             //cows need scraped  - implemented
             //cows need bedded   - implemented         
-            //cows need minerals if they are in calve
-            //some cows need meal if they are close to finishing
+            //cows need minerals if they are in calve   - not implemented
+            //some cows need meal if they are close to finishing    -not implemented
             employee_loop("dailyJobs");
 
 
-		//any cattle close to calving?
+		//any cattle close to calving?  //implemnted
         if(data.date.getMonth() > 0 && data.date.getMonth() < 7){ //months between which cows calve on most beef farms
             cow_loop("checkPregnant")                             //may remove this validation later as could cause issues
         }                                                         //could be better off adding to daily jobs list with similar validation
 			//watching for early signs of calving -implemented
 
-			//help may be needed to calve the cow
-
-			//calves sick? need treatment?
-
-			//
+			//help may be needed to calve the cow - implemented			
+			
     }
     //irregular jobs
             //cattle ready for abbatoir? - implemented
 
-            //silage needs made three times per year
-                    //time and machinery depreciation
-                    //cost of contractors
+            //silage needs made three times per year    //implemented
+                    //time and machinery depreciation   //implemented
+                    //cost of contractors               //implemented
 
-            //meal needs made and fed to cows which are close to finishing
+            //meal needs made and fed to cows which are close to finishing  //not implemented
                     //cost of meal being delivered to farm
                     //time of person feeding the meal to the cows
 
-            //cows need serviced
-                    //choose which ones to serve and which ones to finish
-                    //any cull cows (cows too old to be served again or lame cows who aren't likely to get better or angry cows)
+            //cows need serviced    //implemented
+                    //choose which ones to serve and which ones to finish       /implemented
+                    //any cull cows (cows too old to be served again or lame cows who aren't likely to get better or angry cows)    //implemented
 
-            //machinery needs maintained
+            //machinery needs maintained    //not implemented
 
-            //do cattle need vaccinated? 
+            //do cattle need vaccinated? //not implemented
                     //month before calving need rotavec
                     //once calved the calves get vaccinated against coronavirus and lepto
 
-            //tb test?
+            //tb test?  //not implemented
 
-            //any cattle fall ill?            
+            //any cattle fall ill?         //lameness implemented   
 
             //wages need paid once per month - implemented
 
@@ -709,18 +706,12 @@ function simulate_tick(data) {
         //do the cattle need moved?
         move_check();        
 
-            //if no fields available silage needed
-        //does the electric fencer need moved
-            //time of person going to move the fencer
-        //does the battery on the fencer need replaced
-            //a battery needs charged which costs electric
-            //time of person to go to field and switch batterys over
-            //if not checked regularly cows may break out
-        //spread slurry on silage ground
-            //time and machinery depreciation
-        //spread artificial fertilizer on grazing ground
-            //time and machinery depreciation
-            //more expensive to the farmer but cows won't graze grass which is fertilized by their own slurry
+            //if no fields available silage needed //not implemented
+
+        //spread slurry on silage ground //implemented
+            //time and machinery depreciation   //implemented
+        //spread artificial fertilizer on grazing ground    //implemented
+            //time and machinery depreciation   //implemented
     }
 }
 
@@ -730,8 +721,6 @@ function start(){
 	    simulate_tick(data);        
     }
 }
-//function for date/time comparison probably needed 
-
 
 //get field from an object
 function getFields(input, field) {
