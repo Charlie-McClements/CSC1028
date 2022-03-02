@@ -253,6 +253,11 @@ function employee_tick(number){
     if(getRndInteger(10) < probability){
         bed_houses(number);
     }
+
+    if(getRndInteger(10) < probability){
+        cow_loop("checkPregnant");
+        data.company.Employees[number].hours += 0.5;   
+    }
     validate("emp tick");
 }
 
@@ -275,8 +280,9 @@ function employee_jobs(employee){
 
     }
 
-    if(data.date.getMonth() == 1 && data.date.getDate() == 1){  //at the start of every year remove last years depreciation value
+    if(data.date.getMonth() == 1 && data.date.getDate() == 1){  //at the start of every year remove last years depreciation value and insurance
         machinery_depreciation();
+        data.company.money -= data.company.annualInsurance;
     }
 
     if(employee.contract == "PT"){
@@ -647,9 +653,9 @@ function machinery_depreciation(){  //calculated based off farm average for now,
 //tick simulation
 function simulate_tick(data) {
     data.date = addDays(data.date, 1); //increment the date
-    grass_grow();    
+    grass_grow();    //increment growth of grass
     //simulate cow actions (amount of hunger amount of muck produced)
-    cow_loop("daily");                 //increment growth of grass
+    cow_loop("daily");                 
 	//when in housing
 	if(cow_loop("houseCheck") == true){
         //new day so mark all daily jobs as not done
@@ -661,17 +667,10 @@ function simulate_tick(data) {
             //cows need bedded   - implemented         
             //cows need minerals if they are in calve   - not implemented
             //some cows need meal if they are close to finishing    -not implemented
-            employee_loop("dailyJobs");
-
-
-		//any cattle close to calving?  //implemnted
-        if(data.date.getMonth() > 0 && data.date.getMonth() < 7){ //months between which cows calve on most beef farms
-            cow_loop("checkPregnant")                             //may remove this validation later as could cause issues
-        }                                                         //could be better off adding to daily jobs list with similar validation
+            //any cattle close to calving?  //implemnted                                                    
 			//watching for early signs of calving -implemented
-
-			//help may be needed to calve the cow - implemented			
-			
+			//help may be needed to calve the cow - implemented	
+            employee_loop("dailyJobs");		//all above features implemented in this function	
     }
     //irregular jobs
             //cattle ready for abbatoir? - implemented
@@ -700,18 +699,18 @@ function simulate_tick(data) {
 
             //wages need paid once per month - implemented
 
-    employee_loop("jobs");
+            //spread slurry on silage ground //implemented
+
+            //spread artificial fertilizer on grazing ground    //implemented
+
+          employee_loop("jobs"); //all above features implemented in this function
     //when on pastures    
     if(cow_loop("checkPastures") != null){
         //do the cattle need moved?
         move_check();        
-
             //if no fields available silage needed //not implemented
 
-        //spread slurry on silage ground //implemented
-            //time and machinery depreciation   //implemented
-        //spread artificial fertilizer on grazing ground    //implemented
-            //time and machinery depreciation   //implemented
+        
     }
 }
 

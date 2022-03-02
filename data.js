@@ -8,6 +8,7 @@ var data = ({
         "status": "Active",
         "dateOpened": "01011970",
         "money": 0,
+        "annualInsurance":6000,
         "herdSize":100,
         "breed":{"name":"Salers","calvingEase":0.1, "calvesPerCow":8},        //lower calving ease the better
 
