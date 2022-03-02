@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+			<title>Accuracy</title>		
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+			<link rel="stylesheet" href="../css/buttons.css">
+			<link rel="stylesheet" href="../css/tooltips.css">		
+			<link rel="stylesheet" href="../css/general.css">
+			<script src="jquery-3.6.0.min.js"></script>
+
+	</head>
+	<body>     
+		<div id="head">
+			<div id="headLogo">
+				<img class="image" id="logo" src="../images/logo.png" alt="Charlie McClements logo">
+			</div>
+			<div id="headText">
+				<h2>Simulation of a</br>Farm</h2>
+			</div>			
+		 	
+			<div id="nav">
+				<ul>
+					<li>
+						<a href="../index.html" class="tooltip">
+							<span class="tooltiptext">
+								Back to the blog homepage
+							</span>Home</a></li>
+							<li class="dropdown">
+								<a href="javascript:void(0)" class="dropbtn">Blog Sections</a>
+								<div class="dropdown-content">	
+									<a href="../progress.html" class="tooltip">
+										<span class="tooltiptext">
+											How much I have got done and
+											how well it was implemented
+										</span>
+									  Progress So Far
+									</a>					
+									<a href="../future.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking at what is to come for
+											the project and next steps
+										</span>
+									  Project Future
+									</a>
+									<a href="../running.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking at how the program can
+											be ran from what is found in the
+											github repository.
+										</span>
+										Using The Simulator
+									</a>
+									<a href="../evaluation.html" class="tooltip">
+										<span class="tooltiptext">
+											Evaluating the project based off the 
+											initial goals, where it's at currently
+											and where I see it going.
+										</span>
+										Evaluating The Simulation
+									</a>
+								</div>
+							</li>
+							  <li class="dropdown">
+								<a href="javascript:void(0)" class="dropbtn">How to guide</a>
+								<div class="dropdown-content">	
+									<a href="guide.html" class="tooltip">
+										<span class="tooltiptext">
+											Home page of the how to guide
+										</span>
+									  Home Page
+									</a>					
+									<a href="model.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking into how to model the entire
+											buisness and what we're wanting to
+											focus on.
+										</span>
+									  System model
+									</a>
+									<a href="program.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking into the layout of the program in order
+											to implement the system model.
+										</span>
+										Program Structure
+									</a>
+									<a href="accuracy.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking into how to make the results of the simulation
+											more accurate and comparable.
+										</span>
+										Accuracy
+									</a>
+								</div>
+							</li>
+					<li class="dropdown">
+						<a href="javascript:void(0)" class="dropbtn">Useful Links</a>
+						<div class="dropdown-content">
+							<a href="https://github.com/Charlie-McClements/CSC1028" class="tooltip">
+								<span class="tooltiptext">
+									The github repository for the farm simulation program that I 
+									describe throughout this blog
+								</span>
+								Github Repository
+							  </a>						
+							<a href="https://doi.org/10.1080/00288230809510452" class="tooltip">
+							  <span class="tooltiptext">
+								A writen paper that looks into the theory behind
+								creating an accurate model of a farm in detail.
+							  </span>
+							  New Zealand Journal of Agricultural Research
+							</a>
+							<a href="https://github.com/optimization-js/optimization-js/blob/master/src/optimization.js" target = "_blank" class="tooltip">
+								<span class="tooltiptext">
+									A github repository containing the program which
+									can be utilised to improve the accuracy of your
+									simulation
+								  </span>
+								Optimisation Program</a>
+						</div>
+					</li>
+				</ul>
+			</div>  
+		</div>  	
+		<div id ="wrapper">  
+			        
+			<div id = "title">
+				<h1>Accuracy</h1>
+			</div>
+			<div class = "text">
+				In order to enable accurate comparisons within the simulation before and after
+                changing certain varaibles the randomness within the simulation should be determined
+                by a seed. This allows the user to be certain that any change to the outcome of the
+                simulation is due to their change of variable rather than a different result due to
+                random variation.
+			</div>
+            <div class="row">
+				<div class = "col">   
+					<img class="image" src="../images/random function 1.png" alt = "picture of the code to produce a random number based off a seed">
+				</div>
+				<div class="col">
+					<img class="image" src="../images/random function 2.png" alt = "picture of the code to produce a random number based off a seed">
+				</div>
+			</div>
+            <div class="text">
+                The images above show the random number generator functions that I found online. These take a seed and then use the seed to determine
+                any random numbers that they output.
+            </div>
+            <img class="fullimage" src="../images/random function 3.png" alt = "picture of the code to produce a random number based off a seed">
+            <div class="text">
+                I then made these two variables with the function getRandInt in order to be able to easily produce a random variable at any stage
+                within the simulation by simply calling getRandInt. The function then returns a random number between the max you specified and
+                one inclusive.
+            </div>
+            <div class="row">
+				<div class = "col">   
+					<div class="text">
+                        The initial values used to calculate the profitability of the farm within the
+                        simulation aren't particularly important. In order to make the simulation of 
+                        the program as accurate as possible, human set variables are always going to 
+                        be too inacurate. Therefore, an optimisation program can be used to optimise 
+                        the variables to give the most accurate results. This is done by having a set 
+                        of variables recorded in a real life situation and the outcome of these variables
+                        is recorded.
+                    </div>
+				</div>
+				<div class="col">
+					<div class="text">
+                        An optimisation program can then take the initial values and constantly tweak the 
+                        variables within the program until it can acheive the same results as were produced 
+                        in real life. After this process the simulation should be accurate as it can reproduce 
+                        events that occured within real life. The process can be repeated a few times with 
+                        different events in order to ensure maximum accuracy. The github repository for one 
+                        such open source optimisation program is linked in the useful links section.
+                    </div>
+				</div>
+			</div>                      
+			<div class="page_select">
+				<div class = "left">
+					<a href="program.html" class ="btnleft">Previous Section</a>
+				</div>
+			</div>		
+			<div id="footer">				
+				<img class="image" id="logo" src="../images/logo.png" alt="Charlie McClements logo">
+				<p>					
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
