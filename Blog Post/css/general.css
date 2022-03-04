@@ -94,6 +94,7 @@ li::marker {
 .fullimage{
     display:block;
     margin:auto;
+    width:90%;
     align-items: center;
     border:0.2em solid black;
     border-radius:1em;   
