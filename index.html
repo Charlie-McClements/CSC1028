@@ -8,6 +8,14 @@
     <script tye = "text/javascript" src="data.js"></script>
     <script tye = "text/javascript" src="simulation.js"></script>
     <script tye = "text/javascript" src="calculations.js"></script>
+    <script src="https://unpkg.com/optimization-js@latest/dist/optimization.js"></script>
+    <script>
+    var x0 = [100,2,1.25,150,1000,0.9,50,100,1000,2,10,10]; // array containing the initial values of the paramaters of the optimise function
+
+    var solution = optimjs.minimize_Powell(optimise, x0);    
+
+    console.log(solution);
+    </script>
 </head>
 <body>
 
@@ -15,7 +23,7 @@
 
     <h2> Simulation </h2>
     <p>
-        <button onclick="start();">Run Simulation</button> 
+        <button onclick="optimise();">Run Simulation</button> 
     </p>
 
     <table>

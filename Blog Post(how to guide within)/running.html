@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+			<title>Farm Simulation Blog</title>		
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+			<link rel="stylesheet" href="css/buttons.css">
+			<link rel="stylesheet" href="css/tooltips.css">		
+			<link rel="stylesheet" href="css/general.css">
+			<script src="jquery-3.6.0.min.js"></script>
+
+	</head>
+	<body>     
+		<div id="head">
+			<div id="headLogo">
+				<img class="image" id="logo" src="images/logo.png" alt="Charlie McClements logo">
+			</div>
+			<div id="headText">
+				<h2>Simulation of a</br>Farm</h2>
+			</div>			
+		 	
+		<div id="nav">
+			<ul>
+				<li>
+					<a href="index.html" class="tooltip">
+                        <span class="tooltiptext">
+							Back to the blog homepage
+						</span>Home</a></li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Blog Sections</a>
+                            <div class="dropdown-content">	
+                                <a href="progress.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        How much I have got done and
+                                        how well it was implemented
+                                    </span>
+                                  Progress So Far
+                                </a>					
+                                <a href="future.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking at what is to come for
+                                        the project and next steps
+                                    </span>
+                                  Project Future
+                                </a>
+                                <a href="running.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking at how the program can
+                                        be ran from what is found in the
+                                        github repository.
+                                    </span>
+                                    Using The Simulator
+                                </a>
+                                <a href="evaluation.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Evaluating the project based off the 
+                                        initial goals, where it's at currently
+                                        and where I see it going.
+                                    </span>
+                                    Evaluating The Simulation
+                                </a>
+                            </div>
+                        </li>
+                          <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">How to guide</a>
+                            <div class="dropdown-content">	
+                                <a href="how to guide/guide.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Home page of the how to guide
+                                    </span>
+                                  Home Page
+                                </a>					
+                                <a href="how to guide/model.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into how to model the entire
+                                        buisness and what we're wanting to
+                                        focus on.
+                                    </span>
+                                  System model
+                                </a>
+                                <a href="how to guide/program.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into the layout of the program in order
+                                        to implement the system model.
+                                    </span>
+                                    Program Structure
+                                </a>
+                                <a href="how to guide/accuracy.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into how to make the results of the simulation
+                                        more accurate and comparable.
+                                    </span>
+                                    Accuracy
+                                </a>
+                            </div>
+                        </li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">Useful Links</a>
+					<div class="dropdown-content">
+                        <a href="https://github.com/Charlie-McClements/CSC1028" class="tooltip">
+                            <span class="tooltiptext">
+                                The github repository for the farm simulation program that I 
+                                describe throughout this blog
+                            </span>
+                            Github Repository
+                          </a>						
+					    <a href="https://doi.org/10.1080/00288230809510452" class="tooltip">
+						  <span class="tooltiptext">
+							A writen paper that looks into the theory behind
+							creating an accurate model of a farm in detail.
+						  </span>
+						  New Zealand Journal of Agricultural Research
+						</a>
+						<a href="https://github.com/optimization-js/optimization-js/blob/master/src/optimization.js" target = "_blank" class="tooltip">
+							<span class="tooltiptext">
+								A github repository containing the program which
+								can be utilised to improve the accuracy of your
+								simulation
+							  </span>
+							Optimisation Program</a>
+					</div>
+				</li>
+			</ul>
+		</div>  
+		</div>  	
+		<div id ="wrapper">  
+			        
+			<div id = "title">
+				<h1>Running The Simulation</h1>
+			</div>
+			<div class = "text">
+				You can find the github repository for this project in the useful links section above.
+                In order to run the simulation download the repository and unzip it.
+			</div>	
+            <div class="row">
+				<div class = "col">   
+					<img class="image" src="images/repository.PNG" alt="Image of the folder when unzipped">
+				</div>
+				<div class="col">
+					<div class="text">
+						Once unzipped open the index.html file shown. This will then open in your
+                        default browser. For this I'll be using chrome and recommend you do too as the
+                        developer tools in it are easy to learn.
+					</div>
+				</div>
+			</div>	         
+            <div class="text">
+                Once open, you can press F12 in order to open developer tools in the browser.
+                This will produce a screen similar to the image shown. In order to run the simulation
+                all you have to do is press the run simulation button on the webpage. However this doesn't
+                show any results as there is no output for the simulation as of writing this blog.
+            </div>				
+            <img class="fullimage" src="images/devTools.png" alt="Image of the program open in chrome with dev tools also open">					            				
+            <div class="text">
+                In order to see any results at the end of the simulation, open the simulation.js file in the source window of dev tools.
+                Then scroll down to line 725. If you click the number 725, a blue arrow will appear as shown in the image. This is called
+                a breakpoint. It will pause the program just before it ends to allow you to see any data it has calculated.
+            </div>
+            <img class="fullimage" src="images/breakpoints.png" alt="Image showing where to put the breakpoint in chrome dev tools">
+            <div class="row">
+				<div class = "col">   
+					<img class="image" src="images/ran.PNG" alt="Image of the script paused at a breakpoint">
+				</div>
+				<div class="col">
+					<div class="text">
+						Now upon running you will get a screen that looks like this. In order to see the data produced by the
+                        simulation you can expand the sections in the scope box of the dev tools. In order to see the main details,
+                        expand the global section, then scroll down until you find a variable called data, expand this. Then expand the
+                        company section. This then shows all of the data associated with the farm by the end of the simulation.
+					</div>
+				</div>
+			</div>	 
+            <div class="row">
+				<div class = "col">   
+                    <div class="text">
+                    Now you can see the final data produced by the simulation. You can see how this data changes if the simulation's
+                    variables are changed and how small changes can produce such different outcomes.
+                </div>
+				</div>
+				<div class="col">
+					<img class="image" src="images/data.png" alt="Image showing the output data of the simulation"> 
+                </div>
+			</div>	 
+            <div class="page_select">
+                <div class = "left">
+					<a href="future.html" class ="btnleft">Previous Section</a>
+				</div>
+				<div class = "right">
+					<a href="evaluation.html" class ="btnright">Next Section</a>
+				</div>
+			</div>
+			<div id="footer">
+				
+				<img class="image" id="logo" src="images/logo.png" alt="Charlie McClements logo">
+				<p>					
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

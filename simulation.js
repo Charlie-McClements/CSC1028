@@ -1,8 +1,8 @@
 // time calculations
 
-const daysinweek = 7;
-const daysinmonth = daysinweek * 4;
-const daysinyear = daysinmonth * 12;
+var daysinweek = 7;
+var daysinmonth = daysinweek * 4;
+var daysinyear = daysinmonth * 12;
 
 //random number functions
 function xmur3(str) {
@@ -57,29 +57,29 @@ function getRndInteger(max) {   //produces a random rumber between 1 and max bas
     return Math.floor((rand() * max) + 1);
   }
 
-//standard constants
-const averageConsumption = 10; //kg
-const averageBirthWeight = 38; //kg
-const averageFeedConversionRate = 0.08;
-const primeCarcassWeight = 345; //kg taken from statista
-const priceperkg = 410 //pence per kg
-const haulageFee = 10
-const minFeed = 50;
+//standard varants
+var averageConsumption = 10; //kg
+var averageBirthWeight = 38; //kg
+var averageFeedConversionRate = 0.08;
+var primeCarcassWeight = 345; //kg taken from statista
+var priceperkg = 410 //pence per kg
+var haulageFee = 10
+var minFeed = 50;
 var beddingValue = 10;
-const fertiliserValue = 100;  //determines how much grass being fertilized increases it's growth rate
-const summerValue = 2;      //determines how much the extra sun in summer increases the growth rate of grass
-const grassGrowth = 1.25;     //determines the amount the grass grows before any other factors are applied
-const fertilserPrice = 600; //pounds per tonne
-const fertRate = 50; //kg per acre
-const balePrice = 3;    //pounds per bale
-const depreciation = 150; //rate at which cows conversion rate decreases
-const cutValue = 1000; //amount of grass required before the field can be cut for silage
-const grassSilageConversion = 0.9; //amount of grass lost whilst being converted to silage
-const silageContractorFee = 50; //pounds per acre
-const baleContractorFee = 100;
+var fertiliserValue = 100;  //determines how much grass being fertilized increases it's growth rate
+var summerValue = 2;      //determines how much the extra sun in summer increases the growth rate of grass
+var grassGrowth = 1.25;     //determines the amount the grass grows before any other factors are applied
+var fertilserPrice = 600; //pounds per tonne
+var fertRate = 50; //kg per acre
+var balePrice = 3;    //pounds per bale
+var depreciation = 150; //rate at which cows conversion rate decreases
+var cutValue = 1000; //amount of grass required before the field can be cut for silage
+var grassSilageConversion = 0.9; //amount of grass lost whilst being converted to silage
+var silageContractorFee = 50; //pounds per acre
+var baleContractorFee = 100;
 
 //probability variables
-var housedLameProb = 10;
+var housedLameProb = 100;
 var cowPregnancyProbability = 2; //determines how easily a cow can fall pregnant (1 makes it impossible) higher the number easier they become pregnant
 
 //job trackers
@@ -90,6 +90,38 @@ var feedingDone = false;
 var noCows = data.company.Cows.length;
 var surfaceQuality = 50; //can be used in the future to help calculate likelihood of cows becoming lame
 var date = data.date;
+
+var optimise = function(fertiliser_Value, summer_Value, grass_Growth, depreciation_value, cut_Value, grass_Silage_Conversion, silage_Contractor_Fee,
+     bale_Contractor_Fee,housed_Lame_Prob,cow_Pregnancy_Probability, haulage_Fee, average_Consumption){
+    fertiliserValue = fertiliser_Value;
+    summerValue = summer_Value;
+    grassGrowth = grass_Growth;
+    depreciation = depreciation_value;
+    cutValue = cut_Value;
+    grassSilageConversion = grass_Silage_Conversion;
+    silageContractorFee = silage_Contractor_Fee;
+    baleContractorFee = bale_Contractor_Fee;
+    housedLameProb = housed_Lame_Prob;
+    cowPregnancyProbability = cow_Pregnancy_Probability;
+    haulageFee = haulage_Fee;
+    averageConsumption = average_Consumption;
+    start(365);
+    var realData = createSampleData();
+    var error;
+    var totalError;
+    /*error = realData[3] - (simFeedMoney / noCows);
+    
+    totalError = 0;
+    error = -error>0 ? -error : error;
+    
+    totalError += error;*/
+    error = realData[1] - simLameCows;
+    console.log(simLameCows);
+    error = -error>0 ? -error : error;
+    console.log(error);
+    totalError += error;
+    return totalError;
+}
 
 function cow_tick(cow){   
     if(cow.culled == false){
@@ -108,6 +140,7 @@ function cow_tick(cow){
                 cow.cull = true;
                 cow.location = "pen";
                 cow.lame = true;
+                lameCows += 1;
             }
         }
         else if(cow.location == "field"){
@@ -530,14 +563,18 @@ function make_silage(){
                 data.company.Resources.clampSilage.quantity += data.company.Fields[step].feed * grassSilageConversion;
                 data.company.Fields[step].feed = 0                              
                 if(data.company.Resources.clampSilage.quantity > data.company.Resources.clampSilage.capacity){  //if you have more grass than you can fit in the clamp you have to pay extra to get it made into bales
-                    data.company.money -= data.company.Fields[step].size * baleContractorFee;
+                    var cost = data.company.Fields[step].size * baleContractorFee
+                    data.company.money -= cost;
+                    simFeedMoney += cost;
                 }
                 for(let step = 0; step < data.company.Employees.length; step++){    //require all staff to cover silo
                     data.company.Employees[step].hours += 3;                        
                 }
             }
         }
-        data.company.money -= silageContractorFee * totalAcres;  
+        var c = silageContractorFee * totalAcres
+        data.company.money -= c;
+        simFeedMoney += c;  
     }
     validate("silage");
 }
@@ -717,8 +754,8 @@ function simulate_tick(data) {
     }
 }
 
-function start(){
-    for(let step=0;step<1096;step++)
+function start(noDays){
+    for(let step=0;step<noDays;step++)
     {
 	    simulate_tick(data);        
     }

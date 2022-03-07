@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+			<title>Farm Simulation Blog</title>		
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+			<link rel="stylesheet" href="css/buttons.css">
+			<link rel="stylesheet" href="css/tooltips.css">		
+			<link rel="stylesheet" href="css/general.css">
+			<script src="jquery-3.6.0.min.js"></script>
+
+	</head>
+	<body>     
+		<div id="head">
+			<div id="headLogo">
+				<img class="image" id="logo" src="images/logo.png" alt="Charlie McClements logo">
+			</div>
+			<div id="headText">
+				<h2>Simulation of a</br>Farm</h2>
+			</div>			
+		 	
+		<div id="nav">
+			<ul>
+				<li>
+					<a href="index.html" class="tooltip">
+                        <span class="tooltiptext">
+							Back to the blog homepage
+						</span>Home</a></li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Blog Sections</a>
+                            <div class="dropdown-content">	
+                                <a href="progress.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        How much I have got done and
+                                        how well it was implemented
+                                    </span>
+                                  Progress So Far
+                                </a>					
+                                <a href="future.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking at what is to come for
+                                        the project and next steps
+                                    </span>
+                                  Project Future
+                                </a>
+                                <a href="running.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking at how the program can
+                                        be ran from what is found in the
+                                        github repository.
+                                    </span>
+                                    Using The Simulator
+                                </a>
+                                <a href="evaluation.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Evaluating the project based off the 
+                                        initial goals, where it's at currently
+                                        and where I see it going.
+                                    </span>
+                                    Evaluating The Simulation
+                                </a>
+                            </div>
+                        </li>
+                          <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">How to guide</a>
+                            <div class="dropdown-content">	
+                                <a href="how to guide/guide.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Home page of the how to guide
+                                    </span>
+                                  Home Page
+                                </a>					
+                                <a href="how to guide/model.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into how to model the entire
+                                        buisness and what we're wanting to
+                                        focus on.
+                                    </span>
+                                  System model
+                                </a>
+                                <a href="how to guide/program.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into the layout of the program in order
+                                        to implement the system model.
+                                    </span>
+                                    Program Structure
+                                </a>
+                                <a href="how to guide/accuracy.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into how to make the results of the simulation
+                                        more accurate and comparable.
+                                    </span>
+                                    Accuracy
+                                </a>
+                            </div>
+                        </li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">Useful Links</a>
+					<div class="dropdown-content">
+                        <a href="https://github.com/Charlie-McClements/CSC1028" class="tooltip">
+                            <span class="tooltiptext">
+                                The github repository for the farm simulation program that I 
+                                describe throughout this blog
+                            </span>
+                            Github Repository
+                          </a>						
+					    <a href="https://doi.org/10.1080/00288230809510452" class="tooltip">
+						  <span class="tooltiptext">
+							A writen paper that looks into the theory behind
+							creating an accurate model of a farm in detail.
+						  </span>
+						  New Zealand Journal of Agricultural Research
+						</a>
+						<a href="https://github.com/optimization-js/optimization-js/blob/master/src/optimization.js" target = "_blank" class="tooltip">
+							<span class="tooltiptext">
+								A github repository containing the program which
+								can be utilised to improve the accuracy of your
+								simulation
+							  </span>
+							Optimisation Program</a>
+					</div>
+				</li>
+			</ul>
+		</div>  
+		</div>  	
+		<div id ="wrapper">  
+			        
+			<div id = "title">
+				<h1>Future of the Simulation</h1>
+			</div>
+			<div class = "text">
+				Having seen exactly what the simulation can do,
+                we can now start to look towards the future. What I intend to do before 
+                the end of the module and also what can be added to the project beyond 
+                that in order to make the simulation much more useful and successful.
+			</div>	
+            <div class="row">
+				<div class = "col">   
+					<div class="text" >
+                        <h2>Data Fitting</h2>
+                        As described in the how to guide's accuracy section, I intend to
+                        fit the variables within the simulation in order to make the data
+                        outputted by the simulation much more accurate. This will hopefully
+                        result in a simulation which can reproduce real world results consistently.
+                        This should bring the project alot closer to achieving an initial goal of
+                        having a simulation which can replicate real world results with a small
+                        margin for error.
+					</div>
+				</div>
+				<div class="col">
+					<div class="text">
+                        <h2>Data Output</h2>
+                        I also intend to create a webpage which can display the end results of a simulation
+                        in a user friendly way. My vision for this is to have two sections of the webpage.
+                        Each section will display a different instance of the simulation. So as the data from
+                        two different simulations can be displayed side by side. This will allow for easy comparisons
+                        between changes made within the different simulations. This will help to achieve one of the
+                        goals of the project to make it successful defined at the start of the blog.                        
+					</div>
+				</div>
+			</div>	
+            <div class="text">
+                Completing these two tasks will likely bring me right up to the end of the module. However there
+                are many more tasks and ideas that I would like to see implemented beyond that. Below are a few
+                tasks that I think would add accuracy and value to the project as a whole.
+            </div>
+            <div class="row">
+				<div class = "col">   
+					<div class="text" >
+                        <h2 style="text-align:left">Machinery Depreciation</h2>
+                        Currently within the simulation the cost of machinery is based off an average calculation
+                        for farmers in England's yearly costs per acre. Although this does provide a figure which
+                        isn't absurd, it is not particularly accurate. In order to make this better a list of the
+                        machinery that a farm has should be added to the data.js file. This list should have every
+                        machine on the farm and the value of said machine. The depreciation can then be accurately
+                        calculated with this.
+					</div>
+				</div>
+				<div class="col">
+					<img class="image" style="margin-top:5rem" src="images/depreciation.png" alt="Machinery depreciation function currently in the simulation" title="The machinery depreciation calculation currently in the simulation">
+                    <div class="text">
+                        You would also have to add an estimate of fuel usage to each function where appropriate and
+                        have this be another consumable that must be restocked within the restock function.                        
+                    </div>
+				</div>
+			</div>
+            <div class="row">
+				<div class = "col">   
+					<div class="text" >
+                        <h2 style="text-align:left">Feeding Meal</h2>
+                        In beef farms it is a common practice to feed meal to calves and stock near to finishing age in
+                        order to get them closer to the desired weight faster. This is a large expense for the farm as it
+                        requires buying in meal. However it's benefits seem to mostly outweigh it's drawbacks and as it is
+                        such common practice it should be included in the simulation. In order to include this in the simulation
+                        a function would be required to provide the meal to only certain groups of cows.
+					</div>
+				</div>
+				<div class="col">					
+                    <div class="text" style="margin-top:5rem">
+                        A simple loop through
+                        all cows checking if they meet the age criteria for feeding meal to calves and the cull and age criteria
+                        for finishing stock could be easily implemented. However the cow_tick function would need to be altered
+                        in order to accomodate the addition of meal. If the meal is present for that cow to eat it should be taken
+                        into account for weight gained etc.             
+                    </div>
+				</div>
+			</div>
+            <div class="text">
+                Due to the sheer complexity of a beef farm the scope for additional events being included within the simulation
+                is almost limitless. I have detailed a few above however the only limiting factor is your time. The more you
+                can add to the simulation the more accurate it will be and therefore the more useful. However, do note that with
+                any major changes to the simulation, e.g. the addition of feeding meal to finishing stock, the data would need
+                to be fitted again in order to maintain the accuracy of the simulation.
+            </div>
+			<div class="page_select">
+                <div class = "left">
+					<a href="progress.html" class ="btnleft">Previous Section</a>
+				</div>
+				<div class = "right">
+					<a href="running.html" class ="btnright">Next Section</a>
+				</div>
+			</div>
+			<div id="footer">
+				
+				<img class="image" id="logo" src="images/logo.png" alt="Charlie McClements logo">
+				<p>					
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

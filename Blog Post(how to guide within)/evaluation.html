@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+			<title>Farm Simulation Blog</title>		
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+			<link rel="stylesheet" href="css/buttons.css">
+			<link rel="stylesheet" href="css/tooltips.css">		
+			<link rel="stylesheet" href="css/general.css">
+			<script src="jquery-3.6.0.min.js"></script>
+
+	</head>
+	<body>     
+		<div id="head">
+			<div id="headLogo">
+				<img class="image" id="logo" src="images/logo.png" alt="Charlie McClements logo">
+			</div>
+			<div id="headText">
+				<h2>Simulation of a</br>Farm</h2>
+			</div>			
+		 	
+		<div id="nav">
+			<ul>
+				<li>
+					<a href="index.html" class="tooltip">
+                        <span class="tooltiptext">
+							Back to the blog homepage
+						</span>Home</a></li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Blog Sections</a>
+                            <div class="dropdown-content">	
+                                <a href="progress.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        How much I have got done and
+                                        how well it was implemented
+                                    </span>
+                                  Progress So Far
+                                </a>					
+                                <a href="future.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking at what is to come for
+                                        the project and next steps
+                                    </span>
+                                  Project Future
+                                </a>
+                                <a href="running.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking at how the program can
+                                        be ran from what is found in the
+                                        github repository.
+                                    </span>
+                                    Using The Simulator
+                                </a>
+                                <a href="evaluation.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Evaluating the project based off the 
+                                        initial goals, where it's at currently
+                                        and where I see it going.
+                                    </span>
+                                    Evaluating The Simulation
+                                </a>
+                            </div>
+                        </li>
+                          <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">How to guide</a>
+                            <div class="dropdown-content">	
+                                <a href="how to guide/guide.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Home page of the how to guide
+                                    </span>
+                                  Home Page
+                                </a>					
+                                <a href="how to guide/model.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into how to model the entire
+                                        buisness and what we're wanting to
+                                        focus on.
+                                    </span>
+                                  System model
+                                </a>
+                                <a href="how to guide/program.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into the layout of the program in order
+                                        to implement the system model.
+                                    </span>
+                                    Program Structure
+                                </a>
+                                <a href="how to guide/accuracy.html" class="tooltip">
+                                    <span class="tooltiptext">
+                                        Looking into how to make the results of the simulation
+                                        more accurate and comparable.
+                                    </span>
+                                    Accuracy
+                                </a>
+                            </div>
+                        </li>
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropbtn">Useful Links</a>
+					<div class="dropdown-content">
+                        <a href="https://github.com/Charlie-McClements/CSC1028" class="tooltip">
+                            <span class="tooltiptext">
+                                The github repository for the farm simulation program that I 
+                                describe throughout this blog
+                            </span>
+                            Github Repository
+                          </a>						
+					    <a href="https://doi.org/10.1080/00288230809510452" class="tooltip">
+						  <span class="tooltiptext">
+							A writen paper that looks into the theory behind
+							creating an accurate model of a farm in detail.
+						  </span>
+						  New Zealand Journal of Agricultural Research
+						</a>
+						<a href="https://github.com/optimization-js/optimization-js/blob/master/src/optimization.js" target = "_blank" class="tooltip">
+							<span class="tooltiptext">
+								A github repository containing the program which
+								can be utilised to improve the accuracy of your
+								simulation
+							  </span>
+							Optimisation Program</a>
+					</div>
+				</li>
+			</ul>
+		</div>  
+		</div>  	
+		<div id ="wrapper">  
+			        
+			<div id = "title">
+				<h1>Evaluating the Simulation So Far</h1>
+			</div>
+			<div class = "text">
+				Based off the work that has been done as of writing this, how well
+                does the simulation achieve the initial goals. How close is it to
+                achieving the goals that it hasn't yet achieved and how expandable
+                is the program to build upon it in order to work towards fulfilling
+                all of the goals and more.
+			</div>	
+            <div class="row">
+				<div class = "col">   
+					<div class="text" >
+                        <h2 style="text-align:left">Have the simulation be customised to individual farms quickly and easily</h2>
+						The simulation currently has all of the data specific to an individual farm stored within the data.js
+                        file. This file can very quickly be swapped out for a different file containing details about a different
+                        farm in order to run the simulation on a completely different farm. However the writing of the data.js file
+                        itself is not particularly fast to do. So, although the simulation achieves the goal well, it may be beneficial
+                        to have a second program which aids the writing of the data.js file to make it faster and easier to generate these
+                        files.
+					</div>
+				</div>
+				<div class="col">
+					<div class="text">
+                        <h2 style="text-align:left">Have the simulation be able to replicate past real world results with a small error margin</h2>
+						As discussed previously, the data used within the simulation has not yet been fitted to real world data. Meaning that the
+                        results produced by the simulation aren't close to real world results. However, I believe as the simulation has alot of functionality
+                        in place, the process of fitting the data will be rather simple and therefore this goal is very close to being ticked off the list.
+					</div>
+				</div>
+			</div>	
+            <div class="row">
+				<div class = "col">   
+					<div class="text" >
+                        <h2 style="text-align:left">Have all events within the simulation occur for a reason or be triggered by another entity</h2>
+						Currently within the simulation there aren't any events that aren't triggered by an entity (cow or employee), with the exception
+                        of grass growing, which is triggered by a new day. Therefore this goal is accomplished well by the simulation and can be noted as,
+                        in my opinion, successful.
+					</div>
+				</div>
+				<div class="col">
+					<div class="text">
+                        <h2 style="text-align:left">Have the end product be able to easily compare two different results from the simulation,
+                            before and after a change that you make.</h2>
+                            The simulation's randomness is currently influenced by a set seed within the simulation. Therefore any two results
+                            can be compared knowing for a fact that the output is only different due to a change in variables, not a change in
+                            randomness. Therefore two outputs from the simulation can be compared like for like. However, the output of the simulation
+                            is not currently displayed in a user friendly way. Although this may be easily implemented as discussed in the project's
+                            future section, it hasn't yet been implemented and therefore the goal hasn't been met. Although the goal is close to
+                            being achieved.					                            
+					</div>
+				</div>
+			</div>	
+            <div class="text">
+                Of the initial four goals, two have been successfully achieved as of writing this post. Although 2/4 sounds like the project is
+                only half complete, as has been discussed above, the other two goals are very close to being achieved. Therefore I do believe that,
+                it may not be there yet, however the project is very close to being successful in it's initial goals.
+            </div>
+            <div class="text">
+                The conclusion could be drawn that the project is very close to being, but not yet, successful. However the scope of a project like
+                this may only expand. The more accurate the project becomes the more useful it will become to the everyday farm owner. Therefore in
+                order for it to be useful as well as successful more features should be added to continue improving the accuracy of the simulation,
+                as well as some more comfort features, e.g. nicer ui etc as discussed.
+            </div>
+			<div class="page_select">
+                <div class = "left">
+					<a href="running.html" class ="btnright">Previous Section</a>
+				</div>
+			</div>
+			<div id="footer">
+				
+				<img class="image" id="logo" src="images/logo.png" alt="Charlie McClements logo">
+				<p>					
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

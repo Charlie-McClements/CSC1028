@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+			<title>System Modelling</title>		
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+			<link rel="stylesheet" href="../css/buttons.css">
+			<link rel="stylesheet" href="../css/tooltips.css">		
+			<link rel="stylesheet" href="../css/general.css">
+			<script src="jquery-3.6.0.min.js"></script>
+
+	</head>
+	<body>     
+		<div id="head">
+			<div id="headLogo">
+				<img class="image" id="logo" src="../images/logo.png" alt="Charlie McClements logo">
+			</div>
+			<div id="headText">
+				<h2>Simulation of a</br>Farm</h2>
+			</div>			
+		 	
+			<div id="nav">
+				<ul>
+					<li>
+						<a href="../index.html" class="tooltip">
+							<span class="tooltiptext">
+								Back to the blog homepage
+							</span>Home</a></li>
+							<li class="dropdown">
+								<a href="javascript:void(0)" class="dropbtn">Blog Sections</a>
+								<div class="dropdown-content">	
+									<a href="../progress.html" class="tooltip">
+										<span class="tooltiptext">
+											How much I have got done and
+											how well it was implemented
+										</span>
+									  Progress So Far
+									</a>					
+									<a href="../future.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking at what is to come for
+											the project and next steps
+										</span>
+									  Project Future
+									</a>
+									<a href="../running.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking at how the program can
+											be ran from what is found in the
+											github repository.
+										</span>
+										Using The Simulator
+									</a>
+									<a href="../evaluation.html" class="tooltip">
+										<span class="tooltiptext">
+											Evaluating the project based off the 
+											initial goals, where it's at currently
+											and where I see it going.
+										</span>
+										Evaluating The Simulation
+									</a>
+								</div>
+							</li>
+							  <li class="dropdown">
+								<a href="javascript:void(0)" class="dropbtn">How to guide</a>
+								<div class="dropdown-content">	
+									<a href="guide.html" class="tooltip">
+										<span class="tooltiptext">
+											Home page of the how to guide
+										</span>
+									  Home Page
+									</a>					
+									<a href="model.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking into how to model the entire
+											buisness and what we're wanting to
+											focus on.
+										</span>
+									  System model
+									</a>
+									<a href="program.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking into the layout of the program in order
+											to implement the system model.
+										</span>
+										Program Structure
+									</a>
+									<a href="accuracy.html" class="tooltip">
+										<span class="tooltiptext">
+											Looking into how to make the results of the simulation
+											more accurate and comparable.
+										</span>
+										Accuracy
+									</a>
+								</div>
+							</li>
+					<li class="dropdown">
+						<a href="javascript:void(0)" class="dropbtn">Useful Links</a>
+						<div class="dropdown-content">
+							<a href="https://github.com/Charlie-McClements/CSC1028" class="tooltip">
+								<span class="tooltiptext">
+									The github repository for the farm simulation program that I 
+									describe throughout this blog
+								</span>
+								Github Repository
+							  </a>						
+							<a href="https://doi.org/10.1080/00288230809510452" class="tooltip">
+							  <span class="tooltiptext">
+								A writen paper that looks into the theory behind
+								creating an accurate model of a farm in detail.
+							  </span>
+							  New Zealand Journal of Agricultural Research
+							</a>
+							<a href="https://github.com/optimization-js/optimization-js/blob/master/src/optimization.js" target = "_blank" class="tooltip">
+								<span class="tooltiptext">
+									A github repository containing the program which
+									can be utilised to improve the accuracy of your
+									simulation
+								  </span>
+								Optimisation Program</a>
+						</div>
+					</li>
+				</ul>
+			</div>   
+		</div>  	
+		<div id ="wrapper">  
+			        
+			<div id = "title">
+				<h1>System Modelling</h1>
+			</div>
+			<div class = "text">
+				When talking about the system we are referring to the farm's buisness
+				and all of the variables which have an effect on the buisness.
+			</div>
+			<div class="row">
+				<div class = "col">   
+					<div class="text" >
+						Ideally our system model would include all the variables that can possibly
+						effect the farm. Unfortunately this is not a practical approach as the number
+						of variables is far too large. Therefore we need to narrow the scope slightly.
+						For our simulation we are primarily wanting to simulate the money gained or lost
+						by the farm. Therefore instead of looking at all the variables that can affect every
+						aspect of the farm, we only look at the variables that affect the income and expenses
+						of the farm.
+					</div>
+				</div>
+				<div class="col">
+					<div class="text">
+						With our scope narrowed down we still have a large number of variables. Therefore
+						we should look to focus on the most influential of the variables and events and start from there.
+						For our model I used a data analysis paper written on a beef farm. This gives you a long list
+						of events and the reasons why such an event may be triggered and the effect of such an event.
+						Out of this list we can select the ones that impact the earnings of the farm the most.
+						And now we have a starting point on which we can base our simulation.
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				Another useful source of information asides from a relevant data analysis paper is a paper written
+				in the Newzealand Journal of Agricultural Research (found in useful links above). This documents in detail how you can go about
+				creating a system model for a farm. Although it describes a much higher level apporach than a data analysis report
+				as it is much more theoretical it can help you to make decisions as to what is necessary if a data analysis paper isn't 
+				available or isn't enough to go on.
+			</div>
+			<img class="fullimage" src="../images/system model.png" alt = "flow chart of the system">
+			<div class="text">
+				With our starting point we can then start to map the important events onto a flow chart,
+				a basic example is shown above. This flow chart when complete can give an idea of the causes of an event
+				occuring and what variables should change when that event occurs. This flow chart can then act
+				as the sudo code for your program. Which we will look at in the next section.
+			</div>
+			<div class="page_select">
+				<div class = "left">
+					<a href="guide.html" class ="btnleft">Previous Section</a>
+				</div>
+				<div class = "right">
+					<a href="program.html" class ="btnright">Next Section</a>
+				</div>
+			</div>		
+			<div id="footer">				
+				<img class="image" id="logo" src="../images/logo.png" alt="Charlie McClements logo">
+				<p>					
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
