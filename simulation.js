@@ -91,34 +91,31 @@ var noCows = data.company.Cows.length;
 var surfaceQuality = 50; //can be used in the future to help calculate likelihood of cows becoming lame
 var date = data.date;
 
-var optimise = function(fertiliser_Value, summer_Value, grass_Growth, depreciation_value, cut_Value, grass_Silage_Conversion, silage_Contractor_Fee,
-     bale_Contractor_Fee,housed_Lame_Prob,cow_Pregnancy_Probability, haulage_Fee, average_Consumption){
-    fertiliserValue = fertiliser_Value;
-    summerValue = summer_Value;
-    grassGrowth = grass_Growth;
-    depreciation = depreciation_value;
-    cutValue = cut_Value;
-    grassSilageConversion = grass_Silage_Conversion;
-    silageContractorFee = silage_Contractor_Fee;
-    baleContractorFee = bale_Contractor_Fee;
-    housedLameProb = housed_Lame_Prob;
-    cowPregnancyProbability = cow_Pregnancy_Probability;
-    haulageFee = haulage_Fee;
-    averageConsumption = average_Consumption;
+var optimise = function(parameters){
+   // fertiliserValue = parameters[0];
+    //summerValue = parameters[1];
+    //grassGrowth = parameters[2];
+    //depreciation = parameters[3];
+    //cutValue = parameters[4];
+    //grassSilageConversion = parameters[5];
+    //silageContractorFee = parameters[6];
+    //baleContractorFee = parameters[7];
+    housedLameProb = parameters[8];
+    //cowPregnancyProbability = parameters[9];
+    //haulageFee = parameters[10];
+    //averageConsumption = parameters[11];
     start(365);
     var realData = createSampleData();
-    var error;
-    var totalError;
+    var error = 0;
+    var totalError = 0.0;
     /*error = realData[3] - (simFeedMoney / noCows);
     
     totalError = 0;
     error = -error>0 ? -error : error;
     
     totalError += error;*/
-    error = realData[1] - simLameCows;
-    console.log(simLameCows);
+    error = realData[1] - simLameCows;    
     error = -error>0 ? -error : error;
-    console.log(error);
     totalError += error;
     return totalError;
 }
@@ -140,7 +137,7 @@ function cow_tick(cow){
                 cow.cull = true;
                 cow.location = "pen";
                 cow.lame = true;
-                lameCows += 1;
+                simLameCows += 1;
             }
         }
         else if(cow.location == "field"){
@@ -230,7 +227,7 @@ function pregnant_check(number){
         if(daysAway < -5){  //if the calf is more than 5 days old move the cow and calf to the field
             calf = data.company.Cows[number].calfNumber;
             move_cows(number, 0);
-            move_cows(calf, 0);
+            //move_cows(calf, 0);
         }
     }      
     }
@@ -254,7 +251,8 @@ function empCalving(number){
 
 }
 
-function move_cows(number, field){    
+function move_cows(number, field){  
+    if(number>=data.company.Cows.length)return;         
     data.company.Cows[number].field = field;
     data.company.Cows[number].location = "field"
     for(let step = 0; step < data.company.Employees.length; step++){    //require all staff to move cows for now
