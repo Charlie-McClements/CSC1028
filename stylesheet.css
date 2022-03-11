@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    }
+
+body{
+    background-color: rgb(75, 75, 75);
+    height:100%;
+}
+
+#wrapper{
+    width:95%;
+    height:1000px;    
+    background-color: rgb(110, 110, 110);
+    overflow:auto;
+    margin:auto;
+    
+    margin-top:30px;
+}
+
+#wrapper h1{
+    text-align: center;
+    
+}
+
+#left h2, #right h2{
+    border:green solid 2px;
+    width:max-content;
+    margin:10px;
+}
+
+#left{
+    width:90%; 
+    height:80%;   
+    margin:auto;
+    margin-top: 20px;
+    background-color:grey;
+    text-align: center;
+
+}
+
+#right{
+    width:48%;
+    float:right;
+    margin-right: 1%;
+    margin-top: 20px;
+    background-color: grey;
+}
+
+#resources{
+    width:49%;
+    border:black solid 5px;
+    border-radius: 10px;
+    float: left;
+    margin-left:0.5%;
+}
+
+#cows{
+    width:49%;
+    border:black solid 5px;
+    border-radius: 10px;
+    float:right;
+    margin-right:0.5%;
+}
+
+#houses{
+    width:49%;
+    border:black solid 5px;
+    border-radius: 10px;
+    float:right;
+    margin-top:5px;
+    margin-right:0.5%;
+}
+

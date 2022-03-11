@@ -1,37 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Model Simulation</title>
-    <script tye = "text/javascript" src="data.js"></script>
-    <script tye = "text/javascript" src="simulation.js"></script>
-    <script tye = "text/javascript" src="calculations.js"></script>
+    <script tye="text/javascript" src="data.js"></script>
+    <script tye="text/javascript" src="simulation.js"></script>
+    <script tye="text/javascript" src="calculations.js"></script>
     <script src="optimiser.js"></script>
     <script>
-    var x0 = [100,2,1.25,150,1000,0.9,50,100,100,2,10,10]; // array containing the initial values of the paramaters of the optimise function
-
-    var solution = minimise(x0);    
-    for(let i =0; i<10; i++){
-        solution = minimise(solution);
-    }
-    console.log(solution);
+        /*var x0 = [100,2,1.25,150,1000,0.9,50,100,100,2,10,10]; // array containing the initial values of the paramaters of the optimise function
+    
+        var solution = minimise(x0);    
+        for(let i =0; i<10; i++){
+            solution = minimise(solution);
+        }
+        console.log(solution);*/
     </script>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
 </head>
+
 <body>
+    <div id="wrapper">
 
-    <h1> Event Simulation for a Business Model </h1>
+        <h1> Event Simulation for a Business Model </h1>
 
-    <h2> Simulation </h2>
-    <p>
-        <button onclick="optimise();">Run Simulation</button> 
-    </p>
+        <div id="left">
+            <input type="text" id="seed" placeholder="Type any seed here">
+            <input type="button" id="changeSeed" onclick="changeSeed()" value="Change the seed">
+            <input type="text" id="herdSize" placeholder="Type the required herd size here">
+            <input type="button" id="changeHerdSize" onclick="changeHerdSize()" value="Change herd Size">
+            <p>
+                <button onclick="start(365)">Run Simulation For A Year</button>
+            </p>
 
-    <table>
-        
-    </table>
-    
-    
+            <div id="balance">
+                <h1>Farm Balance (£):</h1>
+                <h1 id="money">00</h1>
+            </div>
+
+            <div id="resources">
+                <h1>Farm Resources</h1>
+                <ul>
+                    <li>Straw:
+                        <span id="straw">0</span>
+                    </li>
+                    <li>Clamp Silage:
+                        <span id="silage">0</span>
+                    </li>
+                    <li>Slurry:
+                        <span id="slurry">0</span>
+                    </li>
+                    <li>Manure:
+                        <span id="manure">0</span>
+                    </li>
+                    <li>Fertiliser
+                        <span id="fertiliser">0</span>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div id="cows">
+                <h1>Cows:</h1>
+                <ul>
+                    <li>Number of Cows:
+                        <span id="tCows">0</span>
+                    </li>
+                    <li>Number of Cows Alive:
+                        <span id="aCows">0</span>
+                    </li>
+                    <li>Number of Lame Cows:
+                        <span id="lCows">0</span>
+                    </li>
+                    <li>Number of Calfs:
+                        <span id="cCows">0</span>
+                    </li>
+
+                </ul>
+            </div>
+            <div id="houses">
+                <h1>House Conditions:</h1>
+                <li>Number of Cows In Pens:
+                    <span id="cPens">0</span>
+                </li>
+                <li>Manure In house:
+                    <span id="mHouse">0</span>
+                </li>
+                <li>Slurry In House:
+                    <span id="sHouse">0</span>
+                </li>
+                <li>Bedding In House:
+                    <span id="bHouse">0</span>
+                </li>
+                <li>Surface Quality:
+                    <span id="qHouse">0</span>
+                </li>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

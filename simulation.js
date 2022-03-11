@@ -5,6 +5,8 @@ var daysinmonth = daysinweek * 4;
 var daysinyear = daysinmonth * 12;
 
 //random number functions
+
+var seed = "seed goes here";
 function xmur3(str) {
     for(var i = 0, h = 1779033703 ^ str.length; i < str.length; i++)
         h = Math.imul(h ^ str.charCodeAt(i), 3432918353),
@@ -45,7 +47,7 @@ function xoshiro128ss(a, b, c, d) {
         return (r >>> 0) / 4294967296;
     }
 }
-let seedFunction = xmur3("Seed Goes Here");
+let seedFunction = xmur3(seed);
 let seed0 = seedFunction();
 let seed1 = seedFunction();
 let seed2 = seedFunction();
@@ -77,9 +79,10 @@ var cutValue = 1000; //amount of grass required before the field can be cut for 
 var grassSilageConversion = 0.9; //amount of grass lost whilst being converted to silage
 var silageContractorFee = 50; //pounds per acre
 var baleContractorFee = 100;
+var lastTime = 0;
 
 //probability variables
-var housedLameProb = 100;
+var housedLameProb = 0;
 var cowPregnancyProbability = 2; //determines how easily a cow can fall pregnant (1 makes it impossible) higher the number easier they become pregnant
 
 //job trackers
@@ -90,8 +93,9 @@ var feedingDone = false;
 var noCows = data.company.Cows.length;
 var surfaceQuality = 50; //can be used in the future to help calculate likelihood of cows becoming lame
 var date = data.date;
+var totalCalves =0;
 
-var optimise = function(parameters){
+/*var optimise = function(parameters){
    // fertiliserValue = parameters[0];
     //summerValue = parameters[1];
     //grassGrowth = parameters[2];
@@ -113,12 +117,12 @@ var optimise = function(parameters){
     totalError = 0;
     error = -error>0 ? -error : error;
     
-    totalError += error;*/
+    totalError += error;
     error = realData[1] - simLameCows;    
     error = -error>0 ? -error : error;
     totalError += error;
     return totalError;
-}
+}*/
 
 function cow_tick(cow){   
     if(cow.culled == false){
@@ -131,7 +135,9 @@ function cow_tick(cow){
             }
             data.company.Resources.houseSlurry.quantity += (getRndInteger(4) + 7); //adding amount of slurry produced by the cow to the total slurry in the house
             data.company.Resources.houseManure.quantity += 5 * (getRndInteger(4) + 7) / 10;  //adding amount of manure produced to the house
-            surfaceQuality -= 1; //simulating the reduction of surface quality as the cows dung
+            if(surfaceQuality>0){
+                surfaceQuality -= 1; //simulating the reduction of surface quality as the cows dung
+            }            
             probLame = getRndInteger(50) + surfaceQuality;
             if(probLame < housedLameProb){
                 cow.cull = true;
@@ -173,6 +179,7 @@ function abattoir_check(number){
 }
 
 function cow_calve(number){   
+    totalCalves++;
     data.company.Cows[number].pregnant = false;
     data.company.Cows[number].noCalves += 1;
     noCows = data.company.Cows.length;    
@@ -672,6 +679,15 @@ function validate(string){
            console.log("Field object corrupted due to: " + string) 
         }
     }
+    
+    if(simLameCows > lastTime){
+        console.log("more lame cows thanks to: " + string);
+    }
+    lastTime = simLameCows
+
+    if(surfaceQuality <0){
+        console.log("surface quality too low thanks to:" + string);
+    }
 }
 
 function machinery_depreciation(){  
@@ -752,11 +768,50 @@ function simulate_tick(data) {
     }
 }
 
+function displayData(){
+    document.getElementById("straw").innerHTML = data.company.Resources.straw.quantity;
+    document.getElementById("silage").innerHTML = data.company.Resources.clampSilage.quantity;
+    document.getElementById("slurry").innerHTML = data.company.Resources.slurry.quantity;
+    document.getElementById("manure").innerHTML = data.company.Resources.manure.quantity;
+    document.getElementById("fertiliser").innerHTML = data.company.Resources.fertiliser.quantity;
+    document.getElementById("money").innerHTML = Math.floor(data.company.money * 100) /100;
+    document.getElementById("tCows").innerHTML = data.company.Cows.length;
+    var aliveCows = 0;    
+    for(let i =0; i<data.company.Cows.length;i++){
+        if(data.company.Cows[i].culled == false){
+            aliveCows +=1;
+        }
+    }
+    document.getElementById("aCows").innerHTML = aliveCows;
+    document.getElementById("cCows").innerHTML = totalCalves;
+    document.getElementById("lCows").innerHTML = simLameCows;
+    var cowsInPens = 0;
+    for(let i =0; i<data.company.Cows.length;i++){
+        if(data.company.Cows[i].location == "pen"){
+            cowsInPens +=1;
+        }
+    }
+    document.getElementById("cPens").innerHTML = cowsInPens;
+    document.getElementById("mHouse").innerHTML = data.company.Resources.houseManure.quantity;
+    document.getElementById("sHouse").innerHTML = data.company.Resources.houseSlurry.quantity;
+    document.getElementById("bHouse").innerHTML = data.company.Resources.houseBedding.quantity;
+    document.getElementById("qHouse").innerHTML = surfaceQuality;
+}
+
+function changeSeed(){
+    seed = document.getElementById("seed").value;
+}
+
+function changeHerdSize(){
+    data.company.herdSize = document.getElementById("herdSize").value;
+}
+
 function start(noDays){
     for(let step=0;step<noDays;step++)
     {
 	    simulate_tick(data);        
     }
+    displayData();
 }
 
 //get field from an object
