@@ -71,19 +71,25 @@ var beddingValue = 10;
 var fertiliserValue = 100;  //determines how much grass being fertilized increases it's growth rate
 var summerValue = 2;      //determines how much the extra sun in summer increases the growth rate of grass
 var grassGrowth = 1.25;     //determines the amount the grass grows before any other factors are applied
-var fertilserPrice = 600; //pounds per tonne
+var fertilserPrice = 200; //pounds per tonne
 var fertRate = 50; //kg per acre
 var balePrice = 3;    //pounds per bale
-var depreciation = 150; //rate at which cows conversion rate decreases
+var depreciation = 100; //rate at which cows conversion rate decreases
 var cutValue = 1000; //amount of grass required before the field can be cut for silage
 var grassSilageConversion = 0.9; //amount of grass lost whilst being converted to silage
 var silageContractorFee = 50; //pounds per acre
 var baleContractorFee = 100;
 var lastTime = 0;
+var placeholder = -1;
+var yearsRan = 0;
+var contractorFees = 0;
+var strawFees = 0;
+var haulageFees = 0;
+var fertFees = 0;
 
 //probability variables
 var housedLameProb = 0;
-var cowPregnancyProbability = 2; //determines how easily a cow can fall pregnant (1 makes it impossible) higher the number easier they become pregnant
+var cowPregnancyProbability = 1; //determines how easily a cow can fall pregnant (1 makes it impossible) higher the number easier they become pregnant
 
 //job trackers
 var beddingDone = false;
@@ -151,7 +157,7 @@ function cow_tick(cow){
                 data.company.Fields[cow.field].feed -= consumption;
                 cow.weight += gain; //add the weight gain to the cow now that it has ate
             }
-            serve_cow(cow);
+            if(data.date.getMonth() > 3 && data.date.getMonth() < 8){serve_cow(cow)}                        
         }
         cow.age += 1; //adding to the age of the cow every day
         if(cow.feedConversionRate > 0){
@@ -164,16 +170,20 @@ function cow_tick(cow){
 
 function abattoir_check(number){    
 	if(data.company.Cows[number].weight >= primeCarcassWeight || data.company.Cows[number].age >= 905){		//if its the correct weight it goes or if it's close to the optimum age it goes as after this the price is cut
-        if(data.company.Cows[number].cull == true && data.company.Cows[number].pregnant == false && data.company.Cows[number].dueMonth < data.date.getMonth() - 7){ //check the cows calf has been weened and she isn't in calf and she is marked to be culled
+        if(data.company.Cows[number].cull == true && data.company.Cows[number].pregnant == false && data.company.Cows[number].dueMonth < data.date.getMonth() - 7 && data.company.Cows[number].culled == false){ //check the cows calf has been weened and she isn't in calf and she is marked to be culled
             data.company.Cows[number].culled = true;
             data.company.money += priceperkg * data.company.Cows[number].weight / 100; // /100 in order to get from pence to pounds
             data.company.money -= haulageFee;
+            haulageFees += haulageFee;
+            cowsCulled += 1;
         }
 	}    
-    else if(data.company.Cows[number].cull == true && data.company.Cows[number].lame == true){
+    else if(data.company.Cows[number].cull == true && data.company.Cows[number].lame == true && data.company.Cows[number].culled == false){
         data.company.Cows[number].culled = true;
         data.company.money += priceperkg * data.company.Cows[number].weight / 100; // /100 in order to get from pence to pounds
         data.company.money -= haulageFee;
+        haulageFees += haulageFee;
+        cowsCulled += 1;
     }
     validate("abb check");
 }
@@ -194,13 +204,12 @@ function cow_calve(number){
     option = cow_loop("herdNo") //gives the number of cows in the replacement herd to see if this calf should join that heard or join the cull heard
     if (option >= data.company.herdSize){
         data.company.Cows[noCows].cull = true;
-    }
+    }    
     validate("cow calve");
 }
 
 function pregnant_check(number){
     if(data.company.Cows[number].pregnant == true){
-        
         if(data.company.Cows[number].location == "pen"){
             daysAway = data.company.Cows[number].dueDay - data.date.getDate();
             probOfCalving = 4 + daysAway;
@@ -219,22 +228,25 @@ function pregnant_check(number){
                 }                
                 else{
                     data.company.Cows[number].pregnant = false;
-                    data.company.Cows[number].cull = true;  //if a cow throws their calf they are usually put to the cull group straight away as they are likely to throw their calf again next year
+                    data.company.Cows[number].cull = true;
+                    move_cows(number,0);  //if a cow throws their calf they are usually put to the cull group straight away as they are likely to throw their calf again next year
                 }
                                 
             }
         }
-        if (data.date.getMonth() == data.company.Cows[number].dueMonth){
-             if (data.date.getDay() > data.company.Cows[number].dueDay - 5 || data.date.getDay() < data.company.Cows[number].dueDay + 5){
-                data.company.Cows[number].location = "pen";                
+        else if (data.date.getMonth() === data.company.Cows[number].dueMonth){
+             if (data.date.getDate() > data.company.Cows[number].dueDay - 5 || data.date.getDate() < data.company.Cows[number].dueDay + 5){
+                data.company.Cows[number].location = "pen";             
              }
         }  
     if(data.company.Cows[number].pregnant == false && data.company.Cows[number].location == "pen"){
         daysAway = data.company.Cows[number].dueDay - data.date.getDate();
-        if(daysAway < -5){  //if the calf is more than 5 days old move the cow and calf to the field
+        if(daysAway = -5){  //if the calf is more than 5 days old move the cow and calf to the field
             calf = data.company.Cows[number].calfNumber;
+            validate("temp1")
             move_cows(number, 0);
-            //move_cows(calf, 0);
+            move_cows(calf, 0);
+            validate("temp2")
         }
     }      
     }
@@ -310,7 +322,7 @@ function employee_jobs(employee){
         cow_loop("move", 0)
     }
 
-    if(data.date.getMonth() == 9 && data.date.getDate() == 1){ //Once into november all cows should be moved to the houses
+    if(data.date.getMonth() == 9 && data.date.getDate() == 1){ //Once into november all cows should be moved to the houses        
         cow_loop("house")
         for(let step = 0; step < data.company.Employees.length; step++){    //Always requires all staff to house cattle for the winter
             employee.hours += 10;                        
@@ -385,11 +397,16 @@ function cow_loop(type, number){ //number can be used for multiple functions in 
             }
 
             else if(type == "move"){
-                move_cows(step,number);
+                if(data.company.Cows[step].location != "pen"){ //don't move cows about to calf into the field
+                    move_cows(step,number);
+                }
+                
             }
 
             else if(type == "house"){
-                data.company.Cows[step].location = "house";
+                if (data.company.Cows[step].location == "field"){ //only move cows already in fields into housing for winter
+                    data.company.Cows[step].location = "house";
+                }
             }
 
             else if(type="herdNo"){
@@ -507,15 +524,18 @@ function bed_houses(number){
 }
 
 function serve_cow(cow){    
-    prob = getRndInteger(10);
-    for(let step = 0; step < data.company.Bulls.length; step++){        
+    prob = getRndInteger(50);
+    
+    for(let step = 0; step < data.company.Bulls.length; step++){    
+         
         if(cow.cull == false && cow.pregnant == false && cow.sire != data.company.Bulls[step].number && data.company.Cows[number].dueMonth < data.date.getMonth() - 2){
             //if(cow.field == data.company.Bulls[step].field){
+                
                 if(prob < cowPregnancyProbability){
                     cow.pregnant = true;
                     cow.calfSire = data.company.Bulls[step].number;
                     due = data.date.getMonth() + 9 //9 months is the average gestation period of a cow
-                    if(due > 12){ //if the due date rolls into next year correct the month accordingly
+                    if(due > 11){ //if the due date rolls into next year correct the month accordingly
                         due -= 12;
                     }
                     cow.dueMonth = due;
@@ -570,6 +590,7 @@ function make_silage(){
                 if(data.company.Resources.clampSilage.quantity > data.company.Resources.clampSilage.capacity){  //if you have more grass than you can fit in the clamp you have to pay extra to get it made into bales
                     var cost = data.company.Fields[step].size * baleContractorFee
                     data.company.money -= cost;
+                    contractorFees += c;
                     simFeedMoney += cost;
                 }
                 for(let step = 0; step < data.company.Employees.length; step++){    //require all staff to cover silo
@@ -579,6 +600,7 @@ function make_silage(){
         }
         var c = silageContractorFee * totalAcres
         data.company.money -= c;
+        contractorFees += c;
         simFeedMoney += c;  
     }
     validate("silage");
@@ -601,6 +623,7 @@ function restock(employee){
         required = acres * fertRate - data.company.Resources.fertiliser.quantity;
         cost = required * fertilserPrice;
         data.company.money -= cost;
+        fertFees += cost;
         data.company.Resources.fertiliser.quantity += required;
         employee.hours += 1;
     }
@@ -608,6 +631,7 @@ function restock(employee){
     if(data.company.Resources.straw.quantity < (data.company.Resources.houseBedding.capacity + data.company.Resources.houseBedding.penCapacity) * 7){ //ensure there's a weeks worth of straw at all times
         cost = 300 * balePrice; //restock with 300 bales (a trailer load) each time
         data.company.money -= cost;
+        strawFees += cost;
         data.company.Resources.straw.quantity += 300;
         employee.hours += 1;
     }    
@@ -661,6 +685,7 @@ function move_check(){
 }
 
 function validate(string){
+    
     for(let step = 0;step<data.company.Employees.length;step++){
         text = Object.keys(data.company.Employees[step])[0];
         if(text != "employeeName"){
@@ -672,6 +697,17 @@ function validate(string){
         if(text >= data.company.Fields.length){
             console.log("Cows in the wrong field caused by: " + string)
         }
+        if(step == placeholder && data.company.Cows[step].pregnant == false){
+            placeholder = -1;
+        }
+        if(data.company.Cows[step].pregnant == true && data.company.Cows[step].location == 'pen'){
+            placeholder = step;
+        }
+        if(step == placeholder && data.company.Cows[step].location != 'pen'){
+            console.log(data.company.Cows[step].location);
+            console.log("cow can't calf because " + string + " took her out of the pen prematurely");
+            placeholder = -1;
+        }        
     }
     for(let step =0; step<data.company.Fields.length;step++){
         text= Object.keys(data.company.Fields[step])[0];
@@ -704,9 +740,39 @@ function machinery_depreciation(){
     data.company.money -= totalCost;
 }
 
+function monthlyFigures(){
+    var temp = 0; 
+    var temp1 = 0;   
+    for(let i =0; i<data.company.Cows.length;i++){
+        if(data.company.Cows[i].culled == false){
+            temp +=1;
+        }
+    }
+    for(let i =0; i<data.company.Cows.length;i++){
+        if(data.company.Cows[i].pregnant == true){
+            temp1 +=1;
+        }
+    }
+    monthlyCows.push(temp);
+    monthlyCalves.push(totalCalves);
+    monthlyMoney.push(data.company.money);
+    monthlyPreg.push(temp1);
+    monthlyCullCows.push(cowsCulled);
+    monthlyBaleFees.push(strawFees);
+    monthlyFertFees.push(fertFees);
+    monthlyHaulageFees.push(haulageFees);
+    monthlySilageFees.push(contractorFees);
+    
+}
+
+populateHerd();
+
 //tick simulation
-function simulate_tick(data) {
+function simulate_tick(data) {    
     data.date = addDays(data.date, 1); //increment the date
+    if(data.date.getDate() == 1){ //collect data at the end of each month
+        monthlyFigures();
+    }
     grass_grow();    //increment growth of grass
     //simulate cow actions (amount of hunger amount of muck produced)
     cow_loop("daily");                 
@@ -796,6 +862,24 @@ function displayData(){
     document.getElementById("sHouse").innerHTML = data.company.Resources.houseSlurry.quantity;
     document.getElementById("bHouse").innerHTML = data.company.Resources.houseBedding.quantity;
     document.getElementById("qHouse").innerHTML = surfaceQuality;
+    document.getElementById("years").innerHTML = yearsRan;
+    myChart.data.datasets[0].data = monthlyCullCows;
+    myChart.data.datasets[1].data = monthlyCows;
+    myChart.data.datasets[2].data = monthlyCalves;
+    myChart.data.datasets[3].data = monthlyPreg;
+    myChart.update();
+    myChart1.data.datasets[0].data = monthlyFertFees;
+    myChart1.data.datasets[1].data = monthlyBaleFees;
+    myChart1.update();
+}
+
+function monthlyDataReset(){
+    monthlyCows.splice(0, monthlyCows.length);
+    monthlyCalves.splice(0, monthlyCalves.length);
+    monthlyPreg.splice(0, monthlyPreg.length);
+    monthlyCullCows.splice(0,monthlyCullCows.length);
+    monthlyBaleFees.splice(0,monthlyBaleFees.length);
+    monthlyFertFees.splice(0,monthlyFertFees.length);
 }
 
 function changeSeed(){
@@ -807,11 +891,15 @@ function changeHerdSize(){
 }
 
 function start(noDays){
+    
     for(let step=0;step<noDays;step++)
     {
 	    simulate_tick(data);        
     }
+    yearsRan ++;
     displayData();
+    monthlyDataReset();
+    cowsCulled = 0;
 }
 
 //get field from an object

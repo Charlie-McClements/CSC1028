@@ -1,15 +1,15 @@
 //data creation from json file
 
 var data = ({
-    "date" : new Date(),    
+    "date" : new Date(2022, 0,0,0,0,0,0),    
     "company" : {
         "name": "D McClements & Sons Ltd",
         "type": "Farm",
         "status": "Active",
         "dateOpened": "01011970",
-        "money": 0,
+        "money": 1000000,
         "annualInsurance":6000,
-        "herdSize":100,
+        "herdSize":10,
         "breed":{"name":"Salers","calvingEase":0.5, "calvesPerCow":8},        //lower calving ease the better
 
         "Employees": [
@@ -22,7 +22,7 @@ var data = ({
                 "employeeType": "Labourer",
                 "contract": "PT",
                 "gender": "M",
-                "rate": 10,
+                "rate": 5,
                 "hours":0,
                 "fertCert":false
                 
@@ -35,7 +35,7 @@ var data = ({
                 "employeeType": "Labourer",
                 "contract": "FT",
                 "gender": "M",
-                "rate": 20,                
+                "rate": 10,                
                 "hours":0,
                 "fertCert": true
             },
@@ -47,7 +47,7 @@ var data = ({
                 "employeeType": "Owner",
                 "contract": "M",
                 "gender": "M",
-                "rate": 30,                
+                "rate": 20,                
                 "hours":0,
                 "fertCert":true
         }],
@@ -222,3 +222,18 @@ var data = ({
     }
 }
 );
+
+function populateHerd(){    //populates the herd with the desired number of cows from the start
+    for(let step=0; step<data.company.herdSize * 1.5; step++){
+        noCows = data.company.Cows.length;    
+        data.company.Cows.push({number:noCows,age: 700,weight: 300,
+            sire:-1, feedConversionRate: averageFeedConversionRate * ((getRndInteger(3) + 8) / 10),pregnant:false,
+            calfSire: 0, dueMonth:0,dueDay:0, noCalves:0,calfNumber:-1,cull:false,field:0,
+            appetite:(getRndInteger(4) + 7) / 10,culled:false,location:"house"});
+        option = cow_loop("herdNo") //gives the number of cows in the replacement herd to see if this calf should join that heard or join the cull heard
+        if (option >= data.company.herdSize){
+            data.company.Cows[noCows].cull = true;
+        } 
+    }
+      
+}

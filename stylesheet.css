@@ -10,7 +10,7 @@ body{
 
 #wrapper{
     width:95%;
-    height:1000px;    
+    height:auto;    
     background-color: rgb(110, 110, 110);
     overflow:auto;
     margin:auto;
@@ -31,11 +31,12 @@ body{
 
 #left{
     width:90%; 
-    height:80%;   
+    height:auto;   
     margin:auto;
     margin-top: 20px;
-    background-color:grey;
+    background-color:rgb(216, 216, 216);
     text-align: center;
+    overflow:auto;
 
 }
 
@@ -70,5 +71,22 @@ body{
     float:right;
     margin-top:5px;
     margin-right:0.5%;
+}
+
+#options{
+    margin-top:20px;
+    display: flex;
+    background-color: darkslategrey;
+    height:100px;
+    justify-content: center;
+    align-items: center;
+}
+
+#options input{
+    margin:10px;
+}
+
+button{
+    margin:20px;
 }
 
