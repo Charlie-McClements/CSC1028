@@ -9,6 +9,7 @@ var sampleEmptyCows = 5;
 var sampleFeedCost = 257;
 var cowsCulled = 0;
 
+
 function calculate(){
     
 }
