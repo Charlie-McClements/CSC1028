@@ -86,6 +86,7 @@ var contractorFees = 0;
 var strawFees = 0;
 var haulageFees = 0;
 var fertFees = 0;
+var wages = 0;
 
 //probability variables
 var housedLameProb = 0;
@@ -590,7 +591,7 @@ function make_silage(){
                 if(data.company.Resources.clampSilage.quantity > data.company.Resources.clampSilage.capacity){  //if you have more grass than you can fit in the clamp you have to pay extra to get it made into bales
                     var cost = data.company.Fields[step].size * baleContractorFee
                     data.company.money -= cost;
-                    contractorFees += c;
+                    contractorFees += cost;
                     simFeedMoney += cost;
                 }
                 for(let step = 0; step < data.company.Employees.length; step++){    //require all staff to cover silo
@@ -600,9 +601,10 @@ function make_silage(){
         }
         var c = silageContractorFee * totalAcres
         data.company.money -= c;
-        contractorFees += c;
+        contractorFees += c;    
         simFeedMoney += c;  
     }
+    
     validate("silage");
 }
 
@@ -611,21 +613,26 @@ function pay_wages(number){
     data.company.money -= amount;
     data.company.Employees[number].totalHours += data.company.Employees[number].hours;
     data.company.Employees[number].hours = 0;
+    wages += amount;
     validate("wages");
 }
 
 function restock(employee){    
     acres = 0;
     for(let step =0; step<data.company.Fields.length; step++){
-        acres += data.company.Fields[step].size
+        if(data.company.Fields[step].crop == 'grazing'){
+            acres += data.company.Fields[step].size;
+        }
+        
     }
-    if(data.company.Resources.fertiliser.quantity < acres * fertRate / 2){    //ensure there's enough inventory at all times to fertilise half your fields
-        required = acres * fertRate - data.company.Resources.fertiliser.quantity;
+    if(data.company.Resources.fertiliser.quantity < (acres * fertRate) / 10){    //ensure there's enough inventory at all times to fertilise half your fields
+        required = (acres * fertRate) / 100;
         cost = required * fertilserPrice;
         data.company.money -= cost;
         fertFees += cost;
         data.company.Resources.fertiliser.quantity += required;
-        employee.hours += 1;
+        employee.hours += 1; 
+        console.log("restocked")       
     }
 
     if(data.company.Resources.straw.quantity < (data.company.Resources.houseBedding.capacity + data.company.Resources.houseBedding.penCapacity) * 7){ //ensure there's a weeks worth of straw at all times
@@ -633,7 +640,7 @@ function restock(employee){
         data.company.money -= cost;
         strawFees += cost;
         data.company.Resources.straw.quantity += 300;
-        employee.hours += 1;
+        employee.hours += 1;        
     }    
     validate("restock");
 }
@@ -741,6 +748,7 @@ function machinery_depreciation(){
 }
 
 function monthlyFigures(){
+    
     var temp = 0; 
     var temp1 = 0;   
     for(let i =0; i<data.company.Cows.length;i++){
@@ -762,7 +770,12 @@ function monthlyFigures(){
     monthlyFertFees.push(fertFees);
     monthlyHaulageFees.push(haulageFees);
     monthlySilageFees.push(contractorFees);
-    
+    monthlyWages.push(wages);
+    monthlyContractorFees.push(contractorFees);
+    contractorFees = 0;
+    wages = 0;
+    strawFees = 0;
+    fertFees = 0;
 }
 
 populateHerd();
@@ -870,6 +883,9 @@ function displayData(){
     myChart.update();
     myChart1.data.datasets[0].data = monthlyFertFees;
     myChart1.data.datasets[1].data = monthlyBaleFees;
+    myChart1.data.datasets[2].data = monthlyWages;
+    myChart1.data.datasets[3].data = monthlySilageFees;
+    console.log(monthlySilageFees);
     myChart1.update();
 }
 
@@ -877,9 +893,11 @@ function monthlyDataReset(){
     monthlyCows.splice(0, monthlyCows.length);
     monthlyCalves.splice(0, monthlyCalves.length);
     monthlyPreg.splice(0, monthlyPreg.length);
-    monthlyCullCows.splice(0,monthlyCullCows.length);
-    monthlyBaleFees.splice(0,monthlyBaleFees.length);
-    monthlyFertFees.splice(0,monthlyFertFees.length);
+    monthlyCullCows.splice(0,monthlyCullCows.length);    
+    monthlyFertFees.splice(0,monthlyFertFees.length);  
+    monthlyBaleFees.splice(0,monthlyBaleFees.length);  
+    monthlyWages.splice(0,monthlyWages.length);
+    monthlySilageFees.splice(0,monthlySilageFees.length);
 }
 
 function changeSeed(){
