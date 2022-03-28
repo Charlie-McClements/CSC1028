@@ -199,14 +199,24 @@
                 </ul>
             </div>
             <div class="text">
-                As of writing this blog, after a simulation is carried out there is no output. Any data calculated during the simulation is lost.
-                In order to view the data the simulation needs to be paused before completion and inspected using developer tools in your desired
-                browser. Although not ideal, this does allow the simulation's results to be recorded and analysed.
+                The results of the simulation are represented on the webpage both listed as data and represented graphically.
+                
+                These graphs show yearly and monthly data which is refreshed every time the run simulation button is pressed.
             </div>
+            <img class="fullimage" style="margin-top:5rem" src="images/results.PNG" alt="Picture of the results screen">
             <div class="text">
                 The data used within the simulation has not as of yet been fitted to real world results. This results in the output of the program
                 not being particularly accurate or useful currently. You can look to the future plans section to see how I intend to remedy
                 these issues
+            </div>
+            <img class="fullimage" style="margin-top:5rem" src="images/validate.PNG" alt="Picture of the validation function">
+            <div class="text">
+                Every time a function edits the data within the json, a simple typo can easily change or even delete all of the data unintentionally.
+                I.e. the data becomes corrupt. Therefore, at the end of every function a validate function is called. This function checks that data
+                being produced by the simulation doesn't become corrupt. If the data is corrupt in some way the function will output to the console 
+                which data is being corrupted and which function is causing the corruption. Therefore the simulation will constantly test and debug 
+                itself as it runs. New tests can be added to the function as new functions are created in order to more specifically check that what
+                the new function is changing is changed properly.
             </div>
 			<div class="page_select">
                 <div class = "left">
